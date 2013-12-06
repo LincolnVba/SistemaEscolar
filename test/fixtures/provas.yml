@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  aluno_id: 
+  nota: 9.99
+
+two:
+  aluno_id: 
+  nota: 9.99

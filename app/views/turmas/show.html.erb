@@ -1,0 +1,19 @@
+<!-- Parte de Relatório de Uma turma cadastrada -->
+<div class="navbar" >
+  <!-- Configurando a barra de navegação -->
+  <div class="navbar-inner" style="height: 45px">
+    <!-- Configurando o título na barra de navegação -->
+    <a class="brand" href="#">Turma</a>
+  </div>
+</div>
+
+<!-- Mostrando a turma selecionada e o professor que leciona nela -->
+<address>
+  <strong><%= @turma.nome %></strong><br>
+  Professor:<%= @turma.professor.nome %><br>
+</address>
+
+<!-- Retornando a Lista de Turmas -->
+<div class="form-actions">
+  <%= link_to 'Voltar', turmas_path, :class => "btn" %>
+</div>

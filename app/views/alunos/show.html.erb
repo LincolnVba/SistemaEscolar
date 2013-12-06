@@ -1,0 +1,67 @@
+<!-- Barra de Navegação no formulário de lançamento de provas -->
+<div class="navbar" >
+  <!-- Configurando a barra de navegação -->
+  <div class="navbar-inner" style="height: 45px">
+    <!-- Criando e configurando o nome da barra de navegação -->
+    <a class="brand" href="#">Aluno</a>
+  </div>
+</div>
+
+<!-- Listando aluno e a qual turma ele pertence -->
+<address>
+  <!-- Nome do Aluno em Fonte forte -->
+  <strong><%= @aluno.nome %></strong><br>
+  <!-- Nome da Turma em Fonte normal -->
+  Turma: <%= @aluno.turma.nome %><br>
+</address>
+
+<!-- f é um objeto que referencia o formulário de alunos -->
+<%= form_for(@aluno) do |f| %>
+    <%= f.hidden_field :prova, :value =>"1" %>
+    <% if @aluno.errors.any? %>
+        <div id="error_explanation">
+          <h2>Cadastro Contém Campos Incorretos</h2>
+
+          <!-- Configurando o retorno de mensgagem de erro ao usuário, em
+          forma de marcadores -->
+          <ul>
+            <% @aluno.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+
+        </div>
+ <% end %>
+
+          <!-- Tabela para os itens referentes as notas do aluno -->
+          <table style="width: 80%">
+
+            <!-- Identificando prova por prova e colorindo os números  -->
+            <tr style="text-align: left">
+              <th colspan="2">Prova <span class="badge badge-success">01</span></th>
+              <th colspan="2">Prova <span class="badge badge-warning">02</span></th>
+              <th colspan="2">Prova <span class="badge badge-info">03</span></th>
+              <th colspan="2">Prova <span class="badge badge-inverse">04</span></th>
+            </tr>
+
+            <!-- Pegando as notas do aluno na base de dados ou coloca 0, se a prova ainda não foi lançada -->
+            <tr>
+              <%= f.fields_for :provas do |p| %>
+                  <!-- Configurano a Label Nota -->
+                 <td style="width: 5%; text-align: right"><%= p.label :nota %></td>
+                  <!-- Configurando o input que receberá a nota -->
+                 <td style="width: 15%"><%= p.text_field :nota, class:"input-mini" %></td>
+              <% end %>
+            </tr>
+
+          </table>
+
+
+    <div class="form-actions">
+      <!-- Configurando botão de Atualização de provas, no lançamento de notas -->
+      <%= f.submit "Atualizar Provas", :class => "btn btn-primary" %>
+      <!-- Botão que volta para a listagem de alunos -->
+      <%= link_to 'Voltar', alunos_path, :class => "btn" %>
+    </div>
+
+<% end %>

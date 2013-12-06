@@ -1,0 +1,15 @@
+<!-- 'Relatório do Professor Selecionando  ou pós ser incluido' -->
+<div class="navbar" >
+  <div class="navbar-inner" style="height: 45px">
+    <a class="brand" href="#">Professor</a>
+  </div>
+</div>
+<address>
+  <strong><%= @professor.nome %></strong><br>
+  Formação:<%= @professor.formacao %><br>
+</address>
+
+<!-- Voltando a página que traz o cadastro de professores-->
+<div class="form-actions">
+  <%= link_to 'Voltar', professors_path, :class => "btn" %>
+</div>

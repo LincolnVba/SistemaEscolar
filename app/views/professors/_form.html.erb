@@ -1,0 +1,39 @@
+<%= form_for(@professor) do |f| %>
+  <% if @professor.errors.any? %>
+        <!-- 'Formulário renderizado para o caso de erros nos campos de professor' -->
+      <div id="error_explanation">
+      <h2>Cadastro Contém Campos Incorretos</h2>
+      <ul>
+      <% @professor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <!-- 'Label e textField do Professor, preenchimento obrigatório' -->
+    <!-- 'Label e textField do Professor, Indicativo ao usuário que ele realmente' -->
+    <!-- 'Placeholder: Nome do professor' -->
+
+  <!-- 'Configuração do formulário para Momento de Inserção de Professores' -->
+  <div class="field">
+    <%= f.label :professor %><br>
+    <%= f.text_field :nome, placeholder: "Nome do professor" , class: "input-xxlarge", required: true %>
+  </div>
+        <!-- 'Label e textField do Professor da formação do professor: obrigatório' -->
+  <div class="field">
+    <%= f.label :formacao, "Graduação" %><br>
+    <%= f.text_field :formacao, placeholder: "formação do professor" , class: "input-xxlarge", required: true %>
+  </div>
+
+  <!-- 'Botão Voltar' -->
+  <div class="form-actions">
+    <!-- 'Se quiser mudar as configurações do botão, acessar o site do bootstrap e pegar a classe
+    que possui as configurações desejadas' -->
+      <%= f.submit nil, :class => "btn" %>
+
+      <!-- 'Arquivo de Professores' -->
+
+      <%= link_to 'Voltar', professors_path, :class => "btn" %>
+  </div>
+<% end %>

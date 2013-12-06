@@ -1,0 +1,73 @@
+<!-- Barra de Navegação e pesquisa de alunos na listagem de alunos -->
+<div class="navbar" >
+  <!-- Configurando a barra de navegação -->
+  <div class="navbar-inner" style="height: 45px">
+    <!-- Configurando o título da barra de navegação -->
+     <a class="brand" href="#">Listagem de alunos</a>
+    <!-- Criando campo para pesquisar alunos dentro da barra de navegação, forma de url -->
+    <%= form_tag alunos_url, :method => :get, class: "navbar-search pull-right" do %>
+        <!-- Digita-se algo e clica no botão pesquisar -->
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <!-- Criando o configurando o botão buscar, muda para buscando... quando clicado -->
+        <%= submit_tag 'Buscar', :disable_with => "Buscando..." , :class=> "btn" %>
+    <% end %>
+
+  </div>
+</div>
+
+<table class="table table-hover">
+
+  <!-- Cabeçalhos da Tabela de Alunos extraidos da base de dados -->
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Turma</th>
+      <th>Situação</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <!-- Conteudos da Tabela -->
+  <tbody>
+    <!-- Varrendo a listagem de alunos -->
+    <% @alunos.each do |aluno| %>
+      <tr>
+        <td><%= aluno.nome %></td>
+        <td><%= aluno.turma.nome %></td>
+
+        <td>
+          <!-- Se a situação do aluno é aprovado, a label fica em verde, senão fica em vermelho -->
+          <span class="label
+               <%= ((aluno.situacao == "Aprovado") ? 'label-success' : 'label-important') %>">
+               <%= aluno.situacao %>
+          </span>
+        </td>
+
+        <!-- Criando um grupo  de botões com 3 botões para os processos de alunos:
+         Lançamento de notas de provas, edição de alunos, exclusão de alunos-->
+        <td>
+          <div class="btn-group">
+            <!-- Link para formulário de lançamento de provas -->
+            <%= link_to 'Provas', aluno, class: "btn" %>
+            <!-- Link para Edição de Alunos -->
+            <%= link_to 'Editar', edit_aluno_path(aluno), class: "btn" %>
+            <!-- Link para deletar aluno com pergunta de confirmação -->
+            <%= link_to 'Deletar', aluno, method: :delete, data: { confirm: 'Deseja realmente excluir este aluno?' } , class: "btn"%>
+          </div>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<br>
+<!-- Botão Para Adicionar novo aluno -->
+<div class="form-actions">
+    <%= link_to 'Adicionar Aluno', new_aluno_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+<!-- Meunu de Alunos -->
+<script>
+    menu = "#alunos"
+</script>

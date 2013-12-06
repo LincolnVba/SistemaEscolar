@@ -1,0 +1,39 @@
+<!-- Formulário de  Turmas () Adição de Turmas -->
+<%= form_for(@turma) do |f| %>
+    <!-- Verificando se dados de turma ok -->
+  <% if @turma.errors.any? %>
+    <div id="error_explanation">
+      <h2>Cadastro Contém Campos Incorretos</h2>
+
+      <!-- Configurando a mensagem de erro que é retornada ao usuário -->
+      <ul>
+      <% @turma.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <!-- Field do Professor em Turma; Seleção de um professor para a turma -->
+  <div class="field">
+    <%= f.label :professor %><br>
+
+    <!-- Carregando a combo com os professores cadastrados no sistema e com o texto: Selecione um Professor -->
+    <%= f.select(:professor_id, @professors.collect {|p| [ p.nome, p.id ] }, {:include_blank => 'Selecione um Professor.',
+                                                                              :selected => @turma.professor_id}, { class: "span3"}) %>
+  </div>
+
+  <!-- Field do nome da turma com ; label da turma, input da turma, placeholder(texto que aparece no input)
+   indicação de obrigatoriedade -->
+  <div class="field">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, placeholder: "Turma" , class: "input-xxlarge", required: true  %>
+  </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => "btn btn-primary" %>
+      <!-- Voltando ao status do formulário com dados de todas as turmas -->
+      <%= link_to 'Voltar', turmas_path, :class => "btn" %>
+    </div>
+<% end %>

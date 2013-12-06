@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sistema Escolar</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+
+<!-- Configurando Barra de rolagem para o corpo da página -->
+<body data-spy="scroll" data-target=".bs-docs-  sidebar">
+<!-- Barra de Navegação com os cadastros do sistema: Alunos, professores e turmas e,
+ fixando ela sempre no topo da página -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+
+    <div class="container">
+
+      <!-- Criando os botões: Alunos, Professores e Turmas -->
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <!-- Link para Acessar o Cadastro de Alunos -->
+          <li class="menu_principal" id="alunos">
+            <%= link_to 'Alunos', alunos_path %>
+          </li>
+
+          <!-- Link para Acessar o Cadastro de Professores -->
+          <li class="menu_principal" id="professores">
+            <%= link_to 'Professores', professors_path %>
+          </li>
+
+          <!-- Link para acessar o Cadastro de Turmas -->
+          <li class="menu_principal" id="turmas">
+            <%= link_to 'Turmas', turmas_path %>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Conteudo ================================================== -->
+
+<div class="container">
+  <br /><br /><br />
+  <div  id="flash_notice">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-success fade in">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="padding:3px 6px 0 0;">×</button>
+          <%= value %>
+        </div>
+    <% end %>
+    <% flash.discard %>
+  </div>
+  <%= yield %>
+</div>
+
+<!-- Rodapé da Página -->
+<footer class="footer">
+  <div class="container">
+    <!-- Link para voltar ao topo da página -->
+    <p class="pull-right"><a href="#">Topo</a></p>
+    <!-- Informação do Sistema na rodapé da página-->
+    <p>Sistema Escolar 2013.</p>
+  </div>
+</footer>
+
+<script>
+    $(".menu_principal").removeClass( "active" );
+    $(menu).addClass( "active" );
+</script>
+</body>
+</html>

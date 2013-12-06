@@ -1,0 +1,70 @@
+
+<!-- 'Barra de Navegação' -->
+<div class="navbar" >
+
+  <!-- 'Tipo da Barra' -->
+  <div class="navbar-inner" style="height: 45px">
+    <!-- 'Tipo do Título' -->
+    <a class="brand" href="#">Lista de professores</a>
+
+    <!-- ' O usuário digita algo na barra de navegação, no form para inserir campo,
+    o campo faz a consulta, vem com nome default pesquisar, chama-se a classe de pesquisa' -->
+    <%= form_tag professors_url, :method => :get, class: "navbar-search pull-right" do %>
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <%= submit_tag 'Buscar', :disable_with => "Buscando..." , :class=> "btn" %>
+    <% end %>
+  </div>
+</div>
+<!-- ' O Rover é quem dá a cor diferente quando se seleciona.' -->
+<table class="table table-hover">
+
+  <!-- ' Título da Tabela' -->
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>Formação</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <!-- ' Corpo da Tabela' -->
+  <tbody>
+
+  <!-- ' Varrendo a Lista de Professores cadastradas na base de dados' -->
+  <% @professors.each do |professor| %>
+      <tr>
+        <!-- ' Pegando os dados, professor por professor' -->
+        <td><%= professor.nome %></td>
+        <td><%= professor.formacao %></td>
+        <td>
+          <!-- ' Agrupando os botões de Visualizar, Editar e Deletar professores' -->
+          <div class="btn-group">
+
+            <!-- ' Se quer visulizar acessa a página de visualização de professores, com os
+            dados do professor escolhido' -->
+            <%= link_to 'Visualizar', professor, class: "btn" %>
+            <!-- ' Se quer editar, acessa a página de edição de professores, carregando os dados
+            do professor selecionado.' -->
+            <%= link_to 'Editar', edit_professor_path(professor), class: "btn" %>
+
+            <!-- 'se quer deletar, pede confirmação, renderiza a página já sem o excluído' -->
+            <%= link_to 'Deletar', professor, method: :delete, data: { confirm: 'Deseja realmente exluir professor?' } , class: "btn"%>
+          </div>
+        </td>
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>
+
+<br>
+
+<!-- ' Botão para adicionar novo professor com configurações largas e azul' -->
+<div class="form-actions">
+  <%= link_to 'Adicionar Professor', new_professor_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+
+
+<script>
+    menu = "#professores"
+</script>

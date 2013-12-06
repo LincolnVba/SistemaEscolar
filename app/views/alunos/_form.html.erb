@@ -1,0 +1,41 @@
+
+<!-- f: objeto do formlário de Alunos -->
+<%= form_for(@aluno) do |f| %>
+    <!-- Retorno de Erros ao tentar cadastrar uma aluno -->
+  <% if @aluno.errors.any? %>
+
+    <!-- Criando o compartimento  que ficará na cor vermelha e com indicativo dos erros -->
+    <div id="error_explanation">
+      <h2>Cadastro Contém Campos Incorretos</h2>
+      <ul>
+        <!-- Retornando a mensagem de erro acontecido -->
+      <% @aluno.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+
+      </ul>
+    </div>
+
+  <% end %>
+
+   <!-- Label com a palavra turma, combo com as turmas cadastradas na base de dados -->
+  <div class="field">
+    <%= f.label :turma_id %><br>
+    <%= f.select(:turma_id, @turmas.collect {|p| [ p.nome, p.id ] }, {include_blank: 'Selecione uma Turma.',
+        selected: @aluno.turma_id}, { class: "span3"}) %>
+  </div>
+
+
+  <!-- Campo para Inserção do Aluno -->
+  <div class="field">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome, placeholder: "Nome do aluno" , class: "input-xxlarge", required: true %>
+  </div>
+
+  <!-- Botões de Adicionar aluno e voltar -->
+  <div class="form-actions">
+    <%= f.submit nil, :class => "btn btn-primary" %>
+    <%= link_to 'Voltar', alunos_path, :class => "btn" %>
+  </div>
+
+<% end %>

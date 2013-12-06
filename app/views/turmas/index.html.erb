@@ -1,0 +1,69 @@
+<!-- Barra de navegação na parte de listagens de turmas -->
+<div class="navbar" >
+  <!-- Configurando a barra de navegação na parte de turmas -->
+  <div class="navbar-inner" style="height: 45px">
+    <!-- Configurando o título na barra de navegação -->
+    <a class="brand" href="#">Listagem de turmas</a>
+
+    <!-- Fazendo a Pesquisa de Turmas, -->
+    <%= form_tag turmas_url, :method => :get, class: "navbar-search pull-right" do %>
+        <%= text_field_tag(:query, ((params[:query])? params[:query].to_s : nil ), placeholder: "Pesquisar", class: "search-query") %>
+        <%= submit_tag 'Buscar', :disable_with => "Buscando..." , :class=> "btn" %>
+    <% end %>
+
+  </div>
+</div>
+
+<!-- Criando uma tabela que trará todos os registros de Turma cadastrados na base de dados -->
+<table class="table table-hover">
+  <!-- Título da Tabela -->
+  <thead>
+  <tr>
+    <th>Turma</th>
+    <th>Professor</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <!-- Corpo da Tabela -->
+  <tbody>
+
+       <!-- varrendo a lista de turmas cadastradas na base de dados -->
+      <% @turmas.each do |turma| %>
+          <tr>
+            <td><%= turma.nome %></td>
+            <td><%= turma.professor.nome %></td>
+            <td>
+              <!-- Configurando um grupo com 3 botões para as operações de turma:
+               Visualizar, Editar e Deletar -->
+              <div class="btn-group">
+                <!-- Visualizando detalhes do cadastro de uma turma-->
+                <%= link_to 'Visualizar', turma, class: "btn" %>
+
+                   <!-- Configurando formulário para edição de turmas,
+                    Carregando combos de professores, colocando a turma selecionada no input. -->
+                <%= link_to 'Editar', edit_turma_path(turma), class: "btn" %>
+
+                  <!-- Mostrando ao usuário, botão de confirmação de exclusão -->
+                <%= link_to 'Deletar', turma, method: :delete, data: { confirm: 'Deseja realmente excluir esta turma?' } , class: "btn"%>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+
+  </tbody>
+
+</table>
+
+<br>
+<!-- Configuração do botão de adição de turmas-->
+<div class="form-actions">
+  <!-- Deixando o formulário com os componentes e opções para cadastros de turmas,
+   após clicar no botão -->
+  <%= link_to 'Adicionar Turma', new_turma_path, :class => "btn btn-large btn-primary disabled"  %>
+</div>
+
+<!-- Menu de Turmas -->
+<script>
+  menu = "#turmas"
+</script>
